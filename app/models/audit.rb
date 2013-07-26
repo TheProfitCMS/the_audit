@@ -1,9 +1,9 @@
 class Audit < ActiveRecord::Base
   belongs_to :user
-  belongs_to :obj, :polymorphic => true
+  belongs_to :obj, polymorphic: true
   
   def init controller, object = nil, data = {}
-    self.obj = object
+    self.obj             = object
     self.action_name     = controller.action_name
     self.controller_name = controller.controller_name
 
