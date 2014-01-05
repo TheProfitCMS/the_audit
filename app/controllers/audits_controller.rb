@@ -1,44 +1,17 @@
 class AuditsController < ApplicationController
   before_action :set_audit, only: [:show, :edit, :update, :destroy]
 
-  # GET /audits
-  # GET /audits.json
   def index
     @audits = Audit.all
   end
 
-  # GET /audits/1
-  # GET /audits/1.json
   def show
   end
 
-  # GET /audits/new
-  def new
-    @audit = Audit.new
-  end
-
-  # GET /audits/1/edit
   def edit
   end
 
-  # POST /audits
-  # POST /audits.json
-  def create
-    @audit = Audit.new(audit_params)
 
-    respond_to do |format|
-      if @audit.save
-        format.html { redirect_to @audit, notice: 'Audit was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @audit }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @audit.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /audits/1
-  # PATCH/PUT /audits/1.json
   def update
     respond_to do |format|
       if @audit.update(audit_params)
@@ -51,8 +24,6 @@ class AuditsController < ApplicationController
     end
   end
 
-  # DELETE /audits/1
-  # DELETE /audits/1.json
   def destroy
     @audit.destroy
     respond_to do |format|

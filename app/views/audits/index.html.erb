@@ -1,20 +1,16 @@
 <h1>Listing audits</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>User</th>
       <th>Obj</th>
-      <th>Obj type</th>
-      <th>Controller name</th>
-      <th>Action name</th>
+      <th>Controller / Action</th>
       <th>Ip</th>
-      <th>Remote ip</th>
       <th>Fullpath</th>
       <th>Referer</th>
       <th>User agent</th>
       <th>Remote addr</th>
-      <th>Remote host</th>
       <th>Data</th>
       <th></th>
       <th></th>
@@ -25,18 +21,14 @@
   <tbody>
     <% @audits.each do |audit| %>
       <tr>
-        <td><%= audit.user_id %></td>
-        <td><%= audit.obj_id %></td>
-        <td><%= audit.obj_type %></td>
-        <td><%= audit.controller_name %></td>
-        <td><%= audit.action_name %></td>
+        <td><%= audit.user_id.nil? ? 'Guest' : audit.user_id %></td>
+        <td><%= link_to audit.obj_type, send("#{audit.obj_type.downcase}_path", audit.obj_id) unless ( audit.obj_id.nil? || audit.obj_type.nil? ) %></td>
+        <td><%= "#{audit.controller_name} / #{audit.action_name}" %></td>
         <td><%= audit.ip %></td>
-        <td><%= audit.remote_ip %></td>
         <td><%= audit.fullpath %></td>
         <td><%= audit.referer %></td>
-        <td><%= audit.user_agent %></td>
+        <td><span title="<%= audit.user_agent %>"><%= truncate(audit.user_agent, length: 10) %></td>
         <td><%= audit.remote_addr %></td>
-        <td><%= audit.remote_host %></td>
         <td><%= audit.data %></td>
         <td><%= link_to 'Show', audit %></td>
         <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
@@ -46,6 +38,3 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Audit', new_audit_path %>
