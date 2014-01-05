@@ -1,0 +1,69 @@
+<%= form_for(@audit) do |f| %>
+  <% if @audit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@audit.errors.count, "error") %> prohibited this audit from being saved:</h2>
+
+      <ul>
+      <% @audit.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :obj_id %><br>
+    <%= f.text_field :obj_id %>
+  </div>
+  <div class="field">
+    <%= f.label :obj_type %><br>
+    <%= f.text_field :obj_type %>
+  </div>
+  <div class="field">
+    <%= f.label :controller_name %><br>
+    <%= f.text_field :controller_name %>
+  </div>
+  <div class="field">
+    <%= f.label :action_name %><br>
+    <%= f.text_field :action_name %>
+  </div>
+  <div class="field">
+    <%= f.label :ip %><br>
+    <%= f.text_field :ip %>
+  </div>
+  <div class="field">
+    <%= f.label :remote_ip %><br>
+    <%= f.text_field :remote_ip %>
+  </div>
+  <div class="field">
+    <%= f.label :fullpath %><br>
+    <%= f.text_field :fullpath %>
+  </div>
+  <div class="field">
+    <%= f.label :referer %><br>
+    <%= f.text_field :referer %>
+  </div>
+  <div class="field">
+    <%= f.label :user_agent %><br>
+    <%= f.text_field :user_agent %>
+  </div>
+  <div class="field">
+    <%= f.label :remote_addr %><br>
+    <%= f.text_field :remote_addr %>
+  </div>
+  <div class="field">
+    <%= f.label :remote_host %><br>
+    <%= f.text_field :remote_host %>
+  </div>
+  <div class="field">
+    <%= f.label :data %><br>
+    <%= f.text_area :data %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

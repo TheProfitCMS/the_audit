@@ -1,0 +1,51 @@
+<h1>Listing audits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Obj</th>
+      <th>Obj type</th>
+      <th>Controller name</th>
+      <th>Action name</th>
+      <th>Ip</th>
+      <th>Remote ip</th>
+      <th>Fullpath</th>
+      <th>Referer</th>
+      <th>User agent</th>
+      <th>Remote addr</th>
+      <th>Remote host</th>
+      <th>Data</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @audits.each do |audit| %>
+      <tr>
+        <td><%= audit.user_id %></td>
+        <td><%= audit.obj_id %></td>
+        <td><%= audit.obj_type %></td>
+        <td><%= audit.controller_name %></td>
+        <td><%= audit.action_name %></td>
+        <td><%= audit.ip %></td>
+        <td><%= audit.remote_ip %></td>
+        <td><%= audit.fullpath %></td>
+        <td><%= audit.referer %></td>
+        <td><%= audit.user_agent %></td>
+        <td><%= audit.remote_addr %></td>
+        <td><%= audit.remote_host %></td>
+        <td><%= audit.data %></td>
+        <td><%= link_to 'Show', audit %></td>
+        <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
+        <td><%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Audit', new_audit_path %>

@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @audit.user_id %>
+</p>
+
+<p>
+  <strong>Obj:</strong>
+  <%= @audit.obj_id %>
+</p>
+
+<p>
+  <strong>Obj type:</strong>
+  <%= @audit.obj_type %>
+</p>
+
+<p>
+  <strong>Controller name:</strong>
+  <%= @audit.controller_name %>
+</p>
+
+<p>
+  <strong>Action name:</strong>
+  <%= @audit.action_name %>
+</p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @audit.ip %>
+</p>
+
+<p>
+  <strong>Remote ip:</strong>
+  <%= @audit.remote_ip %>
+</p>
+
+<p>
+  <strong>Fullpath:</strong>
+  <%= @audit.fullpath %>
+</p>
+
+<p>
+  <strong>Referer:</strong>
+  <%= @audit.referer %>
+</p>
+
+<p>
+  <strong>User agent:</strong>
+  <%= @audit.user_agent %>
+</p>
+
+<p>
+  <strong>Remote addr:</strong>
+  <%= @audit.remote_addr %>
+</p>
+
+<p>
+  <strong>Remote host:</strong>
+  <%= @audit.remote_host %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @audit.data %>
+</p>
+
+<%= link_to 'Edit', edit_audit_path(@audit) %> |
+<%= link_to 'Back', audits_path %>
