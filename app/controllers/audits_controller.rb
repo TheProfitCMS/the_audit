@@ -2,7 +2,9 @@ class AuditsController < ApplicationController
   before_action :set_audit, only: [:show, :edit, :update, :destroy]
 
   def index
-    @audits = Audit.all
+    #TODO constrain for fast refresh while development
+    # @audits = Audit.all
+    @audits = Audit.limit 20
   end
 
   def show

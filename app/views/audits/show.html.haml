@@ -1,0 +1,71 @@
+-# #TODO set bootstrap style for notice
+%p#notice= notice
+
+-# #TODO show Guest unless User present
+%p
+  %strong User:
+  = @audit.user_id
+
+
+%p
+  %strong Obj:
+  = @audit.obj_id
+
+
+%p
+  %strong Obj type:
+  = @audit.obj_type
+
+
+%p
+  %strong Controller name:
+  = @audit.controller_name
+
+
+%p
+  %strong Action name:
+  = @audit.action_name
+
+
+%p
+  %strong Ip:
+  = @audit.ip
+
+
+%p
+  %strong Remote ip:
+  = @audit.remote_ip
+
+
+%p
+  %strong Fullpath:
+  = @audit.fullpath
+
+
+%p
+  %strong Referer:
+  = @audit.referer
+
+
+%p
+  %strong User agent:
+  = @audit.user_agent
+
+
+%p
+  %strong Remote addr:
+  = @audit.remote_addr
+
+
+%p
+  %strong Remote host:
+  = @audit.remote_host
+
+
+%p
+  %strong Data:
+  = @audit.data
+
+= link_to 'Edit', edit_audit_path(@audit)
+|
+= link_to 'Back', audits_path
