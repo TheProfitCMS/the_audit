@@ -22,7 +22,7 @@
     <% @audits.each do |audit| %>
       <tr>
         <td><%= audit.user_id.nil? ? 'Guest' : audit.user_id %></td>
-        <td><%= link_to audit.obj_type, send("#{audit.obj_type.downcase}_path", audit.obj_id) unless ( audit.obj_id.nil? || audit.obj_type.nil? ) %></td>
+        <td><%= link_to audit.obj_type, send("#{audit.obj_type.downcase}_path", audit.obj_id) unless ( audit.obj_id.blank? || audit.obj_type.blank? ) %></td>
         <td><%= "#{audit.controller_name} / #{audit.action_name}" %></td>
         <td><%= audit.ip %></td>
         <td><%= audit.fullpath %></td>
