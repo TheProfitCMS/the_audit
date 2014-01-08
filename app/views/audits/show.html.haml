@@ -1,71 +1,84 @@
--# #TODO set bootstrap style for notice
-%p#notice= notice
+%h1= t("the_audit.show_record")
 
--# #TODO show Guest unless User present
-%p
-  %strong User:
-  = @audit.user_id
-
-
-%p
-  %strong Obj:
-  = @audit.obj_id
-
-
-%p
-  %strong Obj type:
-  = @audit.obj_type
-
-
-%p
-  %strong Controller name:
-  = @audit.controller_name
-
-
-%p
-  %strong Action name:
-  = @audit.action_name
-
-
-%p
-  %strong Ip:
-  = @audit.ip
-
-
-%p
-  %strong Remote ip:
-  = @audit.remote_ip
-
-
-%p
-  %strong Fullpath:
-  = @audit.fullpath
-
-
-%p
-  %strong Referer:
-  = @audit.referer
-
-
-%p
-  %strong User agent:
-  = @audit.user_agent
-
-
-%p
-  %strong Remote addr:
-  = @audit.remote_addr
-
-
-%p
-  %strong Remote host:
-  = @audit.remote_host
-
-
-%p
-  %strong Data:
-  = @audit.data
-
-= link_to t('the_audit.edit'), edit_audit_path(@audit)
-|
-= link_to t('the_audit.list'), audits_path
+- content_for :the_audit_main do
+  -# #TODO set bootstrap style for notice
+  %p#notice= notice
+  
+  %table.table.table-striped
+    %tbody
+      %tr
+        %td
+          %strong User:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.user_id
+      %tr
+        %td
+          %strong Obj:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.obj_id
+      %tr
+        %td
+          %strong Obj type:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.obj_type
+      %tr
+        %td
+          %strong Controller name:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.controller_name
+      %tr
+        %td
+          %strong Action name:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.action_name
+      %tr
+        %td
+          %strong Ip:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.ip
+      %tr
+        %td
+          %strong Remote ip:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.remote_ip
+      %tr
+        %td
+          %strong Fullpath:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.fullpath
+      %tr
+        %td
+          %strong Referer:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.referer
+      %tr
+        %td
+          %strong User agent:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.user_agent
+      %tr
+        %td
+          %strong Remote addr:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.remote_addr
+      %tr
+        %td
+          %strong Data:
+        %td
+          -# #TODO show Guest unless User present
+          = @audit.data
+    /#TODO maybe show buttons insted links
+    = link_to t('the_audit.edit'), edit_audit_path(@audit)
+    |
+    = link_to t('the_audit.list'), audits_path

@@ -1,39 +1,40 @@
-%h1= t('the_audit.list')
+- content_for :the_audit_main do
+  %h1= t('the_audit.list_title')
 
-%table.table.table-hover
-  %thead
-    <!-- #TODO align titles by center -->
-    %tr
-      %th User
-      %th Obj
-      %th Controller / Action
-      %th Ip
-      %th Fullpath
-      %th Referer
-      %th User agent
-      %th Remote addr
-      %th Data
-      %th Action
-
-  %tbody
-    - @audits.each do |audit|
+  %table.table.table-striped.table-hover
+    %thead
+      <!-- #TODO align titles by center -->
       %tr
-        %td= audit.user_id.nil? ? 'Guest' : audit.user_id
-        %td= link_to audit.obj_type, send("#{audit.obj_type.downcase}_path", audit.obj_id) unless ( audit.obj_id.blank? || audit.obj_type.blank? )
-        %td= "#{audit.controller_name} / #{audit.action_name}"
-        %td= audit.ip
-        %td= audit.fullpath
-        %td= audit.referer
-        %td 
-          %span( title="#{audit.user_agent}" ) 
-            = truncate(audit.user_agent, length: 10)
-        %td= audit.remote_addr
-        %td= audit.data
-        %td 
-          .dropdown
-            %button.btn.btn-default.dropdown-toggle(type='button' data-toggle="dropdown") 
-              %span.caret
-            %ul.dropdown-menu(role="menu")
-              %li= link_to('Show', audit)
-              %li= link_to 'Edit', edit_audit_path(audit)
-              %li= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' }
+        %th User
+        %th Obj
+        %th Controller / Action
+        %th Ip
+        %th Fullpath
+        %th Referer
+        %th User agent
+        %th Remote addr
+        %th Data
+        %th Action
+
+    %tbody
+      - @audits.each do |audit|
+        %tr
+          %td= audit.user_id.nil? ? 'Guest' : audit.user_id
+          %td= link_to audit.obj_type, send("#{audit.obj_type.downcase}_path", audit.obj_id) unless ( audit.obj_id.blank? || audit.obj_type.blank? )
+          %td= "#{audit.controller_name} / #{audit.action_name}"
+          %td= audit.ip
+          %td= audit.fullpath
+          %td= audit.referer
+          %td 
+            %span( title="#{audit.user_agent}" ) 
+              = truncate(audit.user_agent, length: 10)
+          %td= audit.remote_addr
+          %td= audit.data
+          %td 
+            .dropdown
+              %button.btn.btn-default.dropdown-toggle(type='button' data-toggle="dropdown") 
+                %span.caret
+              %ul.dropdown-menu(role="menu")
+                %li= link_to('Show', audit)
+                %li= link_to 'Edit', edit_audit_path(audit)
+                %li= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' }
