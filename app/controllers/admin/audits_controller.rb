@@ -1,4 +1,4 @@
-class AuditsController < ApplicationController
+class Admin::AuditsController < ApplicationController
   before_action :set_audit, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -7,17 +7,14 @@ class AuditsController < ApplicationController
     @audits = Audit.limit 20
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
-
+  def edit; end
 
   def update
     respond_to do |format|
       if @audit.update(audit_params)
-        format.html { redirect_to @audit, notice: 'Audit was successfully updated.' }
+        format.html { redirect_to admin_audit_path(@audit), notice: 'Audit was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -29,7 +26,7 @@ class AuditsController < ApplicationController
   def destroy
     @audit.destroy
     respond_to do |format|
-      format.html { redirect_to audits_url }
+      format.html { redirect_to admin_audits_url }
       format.json { head :no_content }
     end
   end
