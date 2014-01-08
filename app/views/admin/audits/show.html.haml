@@ -79,6 +79,6 @@
           -# #TODO show Guest unless User present
           = @audit.data
     /#TODO maybe show buttons insted links
-    = link_to t('the_audit.edit'), edit_audit_path(@audit)
+    = link_to t('the_audit.edit'), edit_admin_audit_path(@audit)
     |
-    = link_to t('the_audit.list'), audits_path
+    = link_to t('the_audit.list'), admin_audits_path

@@ -1,4 +1,4 @@
-= form_for @audit do |f|
+= form_for([:admin, @audit]) do |f|
   -if @audit.errors.any?
     #error_explanation
       %h2= "#{pluralize(@audit.errors.count, "error")} prohibited this audit from being saved:"
