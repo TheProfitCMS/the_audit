@@ -1,0 +1,50 @@
+= form_for @audit do |f|
+  -if @audit.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@audit.errors.count, "error")} prohibited this audit from being saved:"
+      %ul
+        - @audit.errors.full_messages.each do |msg|
+          .alert.alert-danger
+            %li= msg
+
+  .field
+    %p= f.label :user_id
+    %p= f.number_field :user_id, class: 'form-control'
+  .field
+    %p= f.label :obj_id
+    %p= f.text_field :obj_id, class: 'form-control'
+  .field
+    %p= f.label :obj_type
+    %p= f.text_field :obj_type, class: 'form-control'
+  .field
+    %p= f.label :controller_name
+    %p= f.text_field :controller_name, class: 'form-control'
+  .field
+    %p= f.label :action_name
+    %p= f.text_field :action_name, class: 'form-control'
+  .field
+    %p= f.label :ip
+    %p= f.text_field :ip, class: 'form-control'
+  .field
+    %p= f.label :remote_ip
+    %p= f.text_field :remote_ip, class: 'form-control'
+  .field
+    %p= f.label :fullpath
+    %p= f.text_field :fullpath, class: 'form-control'
+  .field
+    %p= f.label :referer
+    %p= f.text_field :referer, class: 'form-control'
+  .field
+    %p= f.label :user_agent
+    %p= f.text_field :user_agent, class: 'form-control'
+  .field
+    %p= f.label :remote_addr
+    %p= f.text_field :remote_addr, class: 'form-control'
+  .field
+    %p= f.label :remote_host
+    %p= f.text_field :remote_host, class: 'form-control'
+  .field
+    %p= f.label :data
+    %p= f.text_area :data, class: 'form-control'
+
+    = f.submit class: 'btn btn-info'
