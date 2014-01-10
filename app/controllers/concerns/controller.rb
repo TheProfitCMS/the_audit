@@ -7,9 +7,10 @@ module TheAudit
     end
       
     def index
-      #TODO constrain for fast refresh while development
+      #TODO create gem config or pagination
+      #TODO this constrains for fast refresh while development
       # @audits = Audit.all
-      @audits = Audit.last 20
+      @audits = Audit.last(20).reverse
     end
 
     def show; end

@@ -16,67 +16,56 @@
         %td
           %strong Obj:
         %td
-          -# #TODO show Guest unless User present
           = @audit.obj_id
       %tr
         %td
           %strong Obj type:
         %td
-          -# #TODO show Guest unless User present
           = @audit.obj_type
       %tr
         %td
           %strong Controller name:
         %td
-          -# #TODO show Guest unless User present
           = @audit.controller_name
       %tr
         %td
           %strong Action name:
         %td
-          -# #TODO show Guest unless User present
           = @audit.action_name
       %tr
         %td
           %strong Ip:
         %td
-          -# #TODO show Guest unless User present
           = @audit.ip
       %tr
         %td
           %strong Remote ip:
         %td
-          -# #TODO show Guest unless User present
           = @audit.remote_ip
       %tr
         %td
           %strong Fullpath:
         %td
-          -# #TODO show Guest unless User present
           = @audit.fullpath
       %tr
         %td
           %strong Referer:
         %td
-          -# #TODO show Guest unless User present
           = @audit.referer
       %tr
         %td
           %strong User agent:
         %td
-          -# #TODO show Guest unless User present
           = @audit.user_agent
       %tr
         %td
           %strong Remote addr:
         %td
-          -# #TODO show Guest unless User present
           = @audit.remote_addr
       %tr
         %td
           %strong Data:
         %td
-          -# #TODO show Guest unless User present
           = @audit.data
     /#TODO maybe show buttons insted links
     = link_to t('the_audit.edit'), edit_admin_audit_path(@audit)
