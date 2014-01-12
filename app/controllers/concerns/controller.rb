@@ -15,23 +15,16 @@ module TheAudit
     def edit; end
 
     def update
-      respond_to do |format|
         if @audit.update(audit_params)
-          format.html { redirect_to admin_audit_path(@audit), notice: 'Audit was successfully updated.' }
-          format.json { head :no_content }
+          redirect_to admin_audit_path(@audit), notice: 'Audit was successfully updated.'
         else
-          format.html { render action: 'edit' }
-          format.json { render json: @audit.errors, status: :unprocessable_entity }
+          render action: 'edit'
         end
-      end
     end
 
     def destroy
       @audit.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_audits_url }
-        format.json { head :no_content }
-      end
+      redirect_to admin_audits_url
     end
 
     private
