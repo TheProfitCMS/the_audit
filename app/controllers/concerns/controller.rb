@@ -7,10 +7,7 @@ module TheAudit
     end
       
     def index
-      #TODO create gem config or pagination
-      #TODO this constrains for fast refresh while development
-      # @audits = Audit.all
-      @audits = Audit.last(20).reverse
+      @audits = Audit.order('id DESC').all.page params[:page]
     end
 
     def show; end

@@ -1,6 +1,8 @@
 - content_for :the_audit_main do
   %h1= t('the_audit.list_title')
 
+  = paginate @audits
+
   %table.table.table-striped.table-hover
     %thead
       <!-- #TODO align titles by center -->
@@ -38,3 +40,4 @@
                 %li= link_to('Show', admin_audit_path(audit))
                 %li= link_to 'Edit', edit_admin_audit_path(audit)
                 %li= link_to 'Destroy', admin_audit_path(audit), method: :delete, data: { confirm: 'Are you sure?' }
+  = paginate @audits
