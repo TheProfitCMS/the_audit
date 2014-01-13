@@ -1,7 +1,7 @@
 # TheAudit - collect user's request info
 
 ### Простой, расширяемый
-<!-- #TODO clarify -->
+[#TODO clarify this sentence]
 
 TheAudit - делает очень простую вещь - логгирует все базовые данные входящих запросов от пользователя и сохраняет эти данные в БД приложения. Предполагается использовать эти данные для мониторинга входящих запросов в приложение и в каждый отдельный контроллер/действие.
 
@@ -9,13 +9,19 @@ Work with Rails 4. This gem collects the following fields:
 User, Obj, Controller/Action, IP,
 Fullpath, Referer, User agent, 
 Remote addr, Data.
-[TODO] clarify this fields and Rails version
+[#TODO] clarify this fields and check in Rails 3 version
 
 Администратор может просматривать все записи аудита, а так-же редактировать и удалять их. По ссылкам можно переходить на конкретные страницы просмотренные пользователем.
 
 ## GUI
-<!-- #TODO Place admin dash picture -->
-[TODO] Place screenshot
+<table>
+<tr>
+  <td>TheAudit management web interface => localhost:3000/admin/audits</td>
+</tr>
+<tr>
+  <td><img src="https://github.com/the-teacher/the_audit/raw/master/pic.png" alt="TheAudit"></td>
+</tr>
+</table>
 
 ## Install
 **Gemfile**
@@ -118,7 +124,7 @@ class ApplicationController < ActionController::Base
 
   private
   def save_audit
-    (@audit || Audit.new.init(self)).save
+    (@audit || Audit.new.init(self)).save unless controller_name == 'audits'
   end
 end
 ```
@@ -148,7 +154,6 @@ Assets and Bootstrap
 **application.js**
 
 ```
-TODO Check it
 //= require jquery
 //= require jquery_ujs
 
