@@ -1,5 +1,11 @@
-Rails.application.routes.draw do 
-  namespace :admin do
-    resources :audits, except: [:new, :create]
+# TheAudit::Routes.mixin(self)
+module TheAudit
+  class Routes
+    def self.mixin mapper
+      mapper.namespace :admin do
+        mapper.resources :audits, except: [:new, :create]
+      end
+    end
   end
 end
+
