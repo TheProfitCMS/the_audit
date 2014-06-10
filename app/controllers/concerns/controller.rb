@@ -5,9 +5,18 @@ module TheAudit
     included do
       before_action :set_audit, only: [:show, :edit, :update, :destroy]
     end
-      
+
     def index
-      @audits = Audit.order('id DESC').all.page params[:page]
+      @ctrl_acts = Audit
+        .select('DISTINCT controller_name, action_name, COUNT(*) as count')
+        .group('controller_name, action_name')
+        .order('count DESC').to_a
+
+      @audits = Audit
+        .by_ip(params)
+        .by_controller_action(params)
+        .simple_sort(params)
+        .pagination(params)
     end
 
     def show; end
@@ -15,11 +24,11 @@ module TheAudit
     def edit; end
 
     def update
-        if @audit.update(audit_params)
-          redirect_to admin_audit_path(@audit), notice: 'Audit was successfully updated.'
-        else
-          render action: 'edit'
-        end
+      if @audit.update(audit_params)
+        redirect_to admin_audit_path(@audit), notice: 'Audit was successfully updated.'
+      else
+        render action: 'edit'
+      end
     end
 
     def destroy

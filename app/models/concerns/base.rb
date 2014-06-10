@@ -2,7 +2,24 @@ module TheAudit
   module Base
     extend ActiveSupport::Concern
 
-    included do 
+    included do
+      include BaseSorts
+
+      scope :by_ip, ->(params){
+        return nil unless ip = params[:ip]
+        where(ip: ip)
+      }
+
+      scope :by_controller_action, ->(params){
+        ca = params[:controller_action]
+        return nil if ca.blank?
+
+        ctrl, act = ca.split '-'
+        return nil if act.blank?
+
+        where(controller_name: ctrl).where(action_name: act)
+      }
+
       belongs_to :user
       belongs_to :obj, polymorphic: true
     end
