@@ -3,7 +3,7 @@
 - content_for :the_audit_main do
   -# #TODO set bootstrap style for notice
   %p#notice= notice
-  
+
   %table.table.table-striped
     %tbody
       %tr
@@ -68,6 +68,6 @@
         %td
           = @audit.data
     /#TODO maybe show buttons insted links
-    = link_to t('the_audit.edit'), edit_admin_audit_path(@audit)
+    = link_to t('the_audit.edit'), edit_audit_path(@audit)
     |
-    = link_to t('the_audit.list'), admin_audits_path
+    = link_to t('the_audit.list'), audits_path

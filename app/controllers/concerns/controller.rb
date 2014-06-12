@@ -3,20 +3,18 @@ module TheAudit
     extend ActiveSupport::Concern
 
     included do
-      before_action :set_audit, only: [:show, :edit, :update, :destroy]
+      before_action :set_audit, only: %w[ show edit update destroy ]
     end
 
     def index
       @ctrl_acts = Audit
+        .audit_scope(params)
         .select('DISTINCT controller_name, action_name, COUNT(*) as count')
         .group('controller_name, action_name')
-        .order('count DESC').to_a
+        .reorder('count DESC').to_a
 
-      @audits = Audit
-        .by_ip(params)
-        .by_controller_action(params)
-        .simple_sort(params)
-        .pagination(params)
+      @audits_count = Audit.audit_scope(params).count
+      @audits = Audit.audit_scope(params).pagination(params)
     end
 
     def show; end
@@ -25,7 +23,7 @@ module TheAudit
 
     def update
       if @audit.update(audit_params)
-        redirect_to admin_audit_path(@audit), notice: 'Audit was successfully updated.'
+        redirect_to audit_path(@audit), notice: 'Audit was successfully updated.'
       else
         render action: 'edit'
       end
@@ -33,7 +31,7 @@ module TheAudit
 
     def destroy
       @audit.destroy
-      redirect_to admin_audits_url
+      redirect_to audits_url
     end
 
     private
