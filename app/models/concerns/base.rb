@@ -88,17 +88,18 @@ module TheAudit
 
     def unescape str
       return nil if str.blank?
-
       res_str = CGI::unescape str
+
       # try to catch:
-      # Invalide byte sequence in UTF-8
+      # invalid byte sequence in UTF-8
       # for search requests form old IE6-8 with cp-1251
       begin
         res_str =~ //
-        res_str
-      rescue
-        CGI.unescape(str).force_encoding('windows-1251').encode
+      rescue ArgumentError
+        res_str = CGI.unescape(str).force_encoding('windows-1251').encode
       end
+
+      res_str
     end
 
     def init controller, object = nil, data = {}
