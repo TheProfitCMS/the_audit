@@ -1,6 +1,10 @@
 require "the_audit/version"
 
 module TheAudit
+  def self.is_bot? user_agent
+    !!user_agent.to_s.match(/bot|riddler/mix)
+  end
+
   class Engine < Rails::Engine; end
   # initializer "Assets precompile hook", :group => :all do |app|
   #   app.config.assets.precompile += %w( file.js file.css )

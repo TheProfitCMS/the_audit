@@ -1,6 +1,7 @@
 module TheAuditHelper
   def bot_marker agent
-    return nil unless agent.to_s.match(/bot|riddler/mix)
+    return nil unless TheAudit.is_bot?(agent)
+
     name = case agent
       when /yandex/mix
         :Yandex

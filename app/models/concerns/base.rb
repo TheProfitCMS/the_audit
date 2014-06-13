@@ -114,6 +114,7 @@ module TheAudit
       if r = controller.request
         self.ip          = r.ip
         self.user_agent  = r.user_agent
+        self.bot         = TheAudit.is_bot?(r.user_agent)
 
         self.remote_ip   = r.remote_ip
         self.remote_addr = r.remote_addr
