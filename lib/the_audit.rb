@@ -2,7 +2,7 @@ require "the_audit/version"
 
 module TheAudit
   def self.is_bot? user_agent
-    !!user_agent.to_s.match(/bot|riddler/mix)
+    !!user_agent.to_s.match(/bot|riddler|crawler|spider/mix)
   end
 
   class Engine < Rails::Engine; end
