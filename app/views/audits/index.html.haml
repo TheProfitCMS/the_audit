@@ -14,6 +14,11 @@
         .form-group
           .row
             .col-xs-4
+              %label{ for: :user_id }
+                user_id
+                = link_to "X", params.except(:user_id)
+              = text_field_tag :user_id, params[:user_id], placeholder: "user_id", class: 'form-control'
+            .col-xs-4
               %label{ for: :ip }
                 IP адрес
                 = link_to "X", params.except(:ip)
@@ -35,6 +40,11 @@
                 obj_id
                 = link_to "X", params.except(:obj_id)
               = text_field_tag :obj_id, params[:obj_id], placeholder: "obj_id", class: 'form-control'
+            .col-xs-4
+              %label{ for: :referer }
+                referer
+                = link_to "X", params.except(:referer)
+              = text_field_tag :referer, params[:referer], placeholder: "referer", class: 'form-control'
         .form-group
           .row
             .col-xs-3
@@ -49,7 +59,7 @@
               = text_field_tag :date_end, params[:date_end],   data: { role: :date_end   }, placeholder: "Дата (до)", class: 'form-control'
       .panel-footer
         = submit_tag "Выбор", name: nil, class: 'btn btn-primary'
-        = link_to "Сбросить фильтры", params.except(:date_start, :date_end, :sort_column, :sort_type, :ip, :fullpath, :referer, :user_agent, :referer, :controller_action, :created_at, :obj_id), class: 'btn btn-default'
+        = link_to "Сбросить фильтры", params.except(:user_id, :date_start, :date_end, :sort_column, :sort_type, :ip, :fullpath, :referer, :user_agent, :referer, :controller_action, :created_at, :obj_id), class: 'btn btn-default'
 
   %table.table.table-striped.table-hover
     %thead
@@ -59,9 +69,9 @@
         %th@ctrl_acts
           - opts = options_for_select @ctrl_acts.collect{|opt| base_name = [ opt.controller_name, opt.action_name ].join(':'); [ "#{ base_name } (#{ opt.count })", base_name ] }, selected: params[:controller_action]
           = select_tag :controller_action, opts, prompt: "Controller/Action", class: 'form-control'
+        %th= link_to 'Fullpath↕', simple_sort_url(:fullpath, params), title: :fullpath
 
         %th= link_to 'IP↕', simple_sort_url(:ip, params), title: :description
-        %th= link_to 'Fullpath↕', simple_sort_url(:fullpath, params), title: :fullpath
         %th= link_to 'Referer↕', simple_sort_url(:referer, params), title: :referer
         %th= link_to 'User agent↕', simple_sort_url(:user_agent, params), title: :user_agent
         %th= link_to 'created_at↕', simple_sort_url(:created_at, params), title: :created_at
@@ -70,7 +80,12 @@
     %tbody
       - @audits.each do |audit|
         %tr
-          %td= audit.user_id.nil? ? 'Guest' : audit.user_id
+          %td
+            - if audit.user
+              = link_to audit.user_name, params.merge(user_id: audit.user_id)
+              / = link_to audit.user_name, audit.user_path(self)
+            - else
+              Guest
 
           %td
             - if audit.obj_type.present?
@@ -80,12 +95,17 @@
               #{ l_1 }:#{ l_2 }&nbsp;#{ l_3 }
 
           %td= [ audit.controller_name, audit.action_name ].join ':'
-          %td= link_to audit.ip, params.merge(ip: audit.ip)
           %td{ title: audit.fullpath }= audit.fullpath.to_s[0..30]
-          %td{ title: audit.referer }= audit.referer.to_s[0..30]
+
+          %td= link_to audit.ip, params.merge(ip: audit.ip)
+
+          %td{ title: audit.referer }
+            = link_to audit.referer.to_s[0..30], params.merge(referer: audit.referer)
+
           %td{ title: audit.user_agent }
             - agent = bot_marker(audit.user_agent) || audit.user_agent.to_s[0..30]
             = link_to agent, params.merge(user_agent: audit.user_agent)
+
           %td= audit.created_at.to_s(:db)
           %td= link_to('Show', audit_path(audit))
 

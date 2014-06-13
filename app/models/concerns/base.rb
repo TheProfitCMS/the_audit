@@ -3,15 +3,32 @@ module TheAudit
     extend ActiveSupport::Concern
 
     included do
+      belongs_to :user
+      belongs_to :obj, polymorphic: true
+
       include BaseSorts
 
       scope :audit_scope, ->(params){
         by_ip(params)
         .by_holder(params)
+        .by_referer(params)
+        .by_user_id(params)
         .by_date_range(params)
         .by_user_agent(params)
         .by_controller_action(params)
         .simple_sort(params)
+      }
+
+      scope :by_user_id, ->(params){
+        uid = params[:user_id]
+        return nil if uid.blank?
+        where(user_id: uid)
+      }
+
+      scope :by_referer, ->(params){
+        referer = params[:referer]
+        return nil if referer.blank?
+        where(referer: referer)
       }
 
       scope :by_ip, ->(params){
@@ -54,11 +71,39 @@ module TheAudit
         where(controller_name: ctrl).where(action_name: act)
       }
 
-      belongs_to :user
-      belongs_to :obj, polymorphic: true
+      scope :with_users, ->{ includes(:user) }
+    end
+
+    def user_name
+      user.try(:email) || user.try(:login) || user.try(:username)
+    end
+
+    def user_path context
+      "/users/#{ user.to_param }"
+    end
+
+    def user_id_builder controller
+      controller.try(:current_user).try(:id)
+    end
+
+    def unescape str
+      return nil if str.blank?
+
+      res_str = CGI::unescape str
+      # try to catch:
+      # Invalide byte sequence in UTF-8
+      # for search requests form old IE6-8 with cp-1251
+      begin
+        res_str =~ //
+        res_str
+      rescue
+        CGI.unescape(str).force_encoding('windows-1251').encode
+      end
     end
 
     def init controller, object = nil, data = {}
+      self.user_id = self.user_id_builder(controller)
+
       self.obj             = object
       self.action_name     = controller.action_name
       self.controller_name = controller.controller_name
@@ -68,11 +113,13 @@ module TheAudit
       if r = controller.request
         self.ip          = r.ip
         self.user_agent  = r.user_agent
+
         self.remote_ip   = r.remote_ip
         self.remote_addr = r.remote_addr
         self.remote_host = r.remote_host
-        self.fullpath    = CGI::unescape(r.fullpath || '')
-        self.referer     = CGI::unescape(r.referer  || 'direct_visit')
+
+        self.fullpath    = self.unescape(r.fullpath) || ''
+        self.referer     = self.unescape(r.referer)  || :direct_visit
       end
 
       self
