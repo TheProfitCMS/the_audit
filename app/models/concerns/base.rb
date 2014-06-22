@@ -3,6 +3,8 @@ module TheAudit
     extend ActiveSupport::Concern
 
     included do
+      include ThePagination::Concern
+
       belongs_to :user
       belongs_to :obj, polymorphic: true
 
