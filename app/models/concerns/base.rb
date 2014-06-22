@@ -3,12 +3,11 @@ module TheAudit
     extend ActiveSupport::Concern
 
     included do
-      include ThePagination::Concern
-
       belongs_to :user
       belongs_to :obj, polymorphic: true
 
-      include BaseSorts
+      include TheSimpleSort::Base
+      include ThePagination::Base
 
       scope :audit_scope, ->(params){
         by_ip(params)
